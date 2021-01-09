@@ -1,9 +1,7 @@
 {
-    "status": true,
-    "code": 200,
     "data": [
         {
-            "id": 10,
+            "id": 1,
             "planning": {
                 "id": 1,
                 "objective": [
@@ -172,6 +170,5 @@
                 ]
             }
         }
-    ],
-    "message": "Roles details"
+    ]
 }
