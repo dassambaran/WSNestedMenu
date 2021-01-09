@@ -16,7 +16,7 @@ class NestedMenuViewModel {
     var arrNestedMenu = [NestedMenuCellViewModel]()
     var lastExpandedHierarchyPos = -1
     
-    ///Parsing up from local json
+    ///Parsing  from local json
     func setup(completion: ((Bool) -> Void)) {
         self.arrNestedMenu.removeAll()
         do {
@@ -52,7 +52,7 @@ class NestedMenuViewModel {
             return
         }
         
-        //Appending data
+        //Preparing for Append
         func appendRows(at index: Int)  {
             if self.arrNestedMenu[index].child.count > 0 {
                 self.arrNestedMenu[index].isExpanded = true
@@ -64,10 +64,12 @@ class NestedMenuViewModel {
                 self.append(to: index)
             }
         }
+        //Remove old child nodes from array
         func removeOldNodes() {
             var position = 0
             for item in self.arrNestedMenu {
-                if item.currentlyExpandedNode {
+                if item.lastExpandedNode {
+                    item.isExpanded = false
                     position = item.hierarchyPosition
                     break
                 }
@@ -76,6 +78,8 @@ class NestedMenuViewModel {
                 return objToDel.hierarchyPosition > position
             }
         }
+        
+        ///After deleting old nodes, get new index to add all the respective child nodes
         func getNewIndexAfterDelete() -> Int {
             for (index,item) in self.arrNestedMenu.enumerated() {
                 if item.currentlyExpandedNode {
@@ -84,27 +88,27 @@ class NestedMenuViewModel {
             }
             return 0
         }
-        func deselectLastExpandedRow()  {
-            for (index,item) in self.arrNestedMenu.enumerated() {
-                if item.hierarchyPosition == self.lastExpandedHierarchyPos {
-                    self.arrNestedMenu[index].isExpanded = false
-                    return
-                }
-            }
-        }
+        
         
         let currentHierrachyPos = self.arrNestedMenu[indexPath.row].hierarchyPosition
+        //Only for current root node
         if currentHierrachyPos > 0 {
-//            if self.arrNestedMenu[indexPath.row].isExpanded {
-//                self.arrNestedMenu[indexPath.row].isExpanded = false
-//                /// Already expanded row
-//                self.arrNestedMenu.removeAll { (objToDel) in
-//                    return objToDel.hierarchyPosition > currentHierrachyPos
-//                }
-//                return
-//            }
+            //below block is to collapse already expanded nodes
+            if self.arrNestedMenu[indexPath.row].isExpanded {
+                self.arrNestedMenu[indexPath.row].isExpanded = false
+                /// Already expanded row
+                _ = self.arrNestedMenu.map({ (obj) in
+                    obj.currentlyExpandedNode = false
+                })
+                self.arrNestedMenu[indexPath.row].currentlyExpandedNode = false
+                let position = self.arrNestedMenu[indexPath.row].hierarchyPosition
+                self.arrNestedMenu.removeAll { (objToDel) in
+                    return objToDel.hierarchyPosition > position
+                }
+                return
+            }
             
-            
+            //below block is to delete all expanded nodes and add selected child nodes if any within a same root node
             if self.arrNestedMenu[indexPath.row].child.count > 0 {
                 if currentHierrachyPos <= self.lastExpandedHierarchyPos {
                     ///Marking curently expanded row
@@ -113,7 +117,6 @@ class NestedMenuViewModel {
                     })
                     self.arrNestedMenu[indexPath.row].currentlyExpandedNode = true
                     
-                    //deselectLastExpandedRow()
                     removeOldNodes()
                     
                     let newIndex = getNewIndexAfterDelete()
@@ -122,7 +125,9 @@ class NestedMenuViewModel {
                 }
             }
         } else {
-            //different root row
+            //This is for different root node
+            
+            //This will trigger when this root node is already expanded and will collapse
             if self.arrNestedMenu[indexPath.row].isExpanded {
                 /// Already expanded row
                 self.arrNestedMenu.removeAll { (objToDel) in
@@ -135,33 +140,50 @@ class NestedMenuViewModel {
                 _ = self.arrNestedMenu.map({ (obj) in
                     obj.isExpanded = false
                 })
-                ///Marking curently expanded row
+                
+                //evaluate old(other one) root nodes for deletion
+                var rootIndex = 0
+                for item in self.arrNestedMenu {
+                    if (item.currentlyExpandedNode || item.lastExpandedNode) {
+                        rootIndex = item.rootIndex
+                        break
+                    }
+                }
+                
+                ///clearing all the  curently expanded row and setting up the current one
                 _ = self.arrNestedMenu.map({ (obj) in
                     obj.currentlyExpandedNode = false
                 })
                 self.arrNestedMenu[indexPath.row].currentlyExpandedNode = true
                 
-                removeOldNodes()
+                ///clearing all the  last expanded row
+                _ = self.arrNestedMenu.map({ (obj) in
+                    obj.lastExpandedNode = false
+                })
+                
+                //Remove all the other child nodes which need to collapse
+                self.arrNestedMenu.removeAll { (objToDel) in
+                    return (objToDel.rootIndex == rootIndex) && objToDel.hierarchyPosition > 0
+                }
+                //Append new child nodes which need to show
                 let newIndex = getNewIndexAfterDelete()
                 appendRows(at: newIndex)
                 return
             }
-            
         }
         
-        
+        ///This will trigger only when all the above alternatives would not
         appendRows(at: indexPath.row)
         return
     }
     
+    //Appending all the child rows to the main array
     func append(to rowPosition: Int)  {
         let tempArr = self.arrNestedMenu[rowPosition].child
         for (index,item) in tempArr.enumerated() {
             self.arrNestedMenu.insert(item, at: (rowPosition + (index + 1)))
         }
     }
-    
-    
 }
 
 class NestedMenuCellViewModel: Copying {
@@ -173,6 +195,7 @@ class NestedMenuCellViewModel: Copying {
     var lastExpandedNode: Bool = false
     var currentlyExpandedNode: Bool = false
     
+    //Incase of adding new property , need to add in below method also
     required init(original: NestedMenuCellViewModel) {
         name = original.name
         isExpanded = original.isExpanded
