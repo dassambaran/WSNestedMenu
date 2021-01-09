@@ -1,0 +1,177 @@
+{
+    "status": true,
+    "code": 200,
+    "data": [
+        {
+            "id": 10,
+            "planning": {
+                "id": 1,
+                "objective": [
+                    {
+                        "id": 1,
+                        "content_obj": "Role 1",
+                        "objective": [
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 1",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 2",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 3",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "content_obj": "Role 2",
+                        "objective": [
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 1",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 2",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 3",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "content_obj": "Role 3",
+                        "objective": [
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 1",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 2",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 1,
+                                "content_obj": "Objective 3",
+                                "objective": [
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 1",
+                                        "objective": []
+                                    },
+                                    {
+                                        "id": 1,
+                                        "content_obj": "Key Results 2",
+                                        "objective": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "message": "Roles details"
+}
