@@ -22,6 +22,7 @@ class NestedMenuViewController: UIViewController {
     }
 }
 
+//MARK:- Tableview data source
 extension NestedMenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.count()
@@ -37,6 +38,7 @@ extension NestedMenuViewController: UITableViewDataSource {
     }
 }
 
+//MARK:- Tableview Delegate
 extension NestedMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.toggleMenu(indexPath: indexPath)
@@ -44,6 +46,7 @@ extension NestedMenuViewController: UITableViewDelegate {
     }
 }
 
+//MARK:- UItableview cell
 class NestedMenuCell: UITableViewCell {
     @IBOutlet weak var seperatorView: UIView!
     
